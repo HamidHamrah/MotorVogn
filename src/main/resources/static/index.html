@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MotorVogn  Register</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1> MotorVogn Register</h1>
+    <input  placeholder="Eier Personnummer" id="EP"/>
+    <input  placeholder="Eier Navn" id="EN"/>
+    <input  placeholder="Eier adresse" id="EA"/> <br>
+    <input  placeholder="Kjenetegn" id="KB"/>
+    <input  placeholder="BilMerke" id="BilMerke"/>
+    <input  placeholder="BilType" id="BilType"/><br>
+    <button id="Register" onclick="regMotorVogn()">Register</button>
+    <div id="ut"></div>
+
+    <script type="application/javascript">
+            function regMotorVogn(){
+                const MotorVogn={
+                    Personnummer:$("#EP").val(),
+                    Navn: $("#EN").val(),
+                    Adresse: $("#EA").val(),
+                    kjenetegn:$("#KB").val(),
+                    BilMerke:$("#BilMerke").val,
+                    BilType:$("#BilType").val()
+                };
+                $.post("/lagreAlle" , MotorVogn, function (){
+                    hentAlle();
+                });
+                $("#EP").val("");
+                $("#EN").val("");
+                $("#EA").val("");
+                $("#KB").val("");
+                $("#BilMerke").val("");
+                $("#BilType").val("");
+            }
+            function hentAlle(){
+                $.get("/hentalle", function (Biler){
+                    formaterData(Biler);
+                });
+            }
+            function formaterData(Biler){
+                let ut="<Table><tr><th>Personnummer</th>" +
+                    "<th>Navn</th>" +
+                    "<th>Adresse</th>" +
+                    "<th>kjenetegn</th>" +
+                    "<th>Merke</th>" +
+                    "<th>Type</th>" +
+                    "</tr>"
+                for (const MotorVogn of Biler){
+                    ut+="<tr><td>"+MotorVogn.Personnummer+"</td>" +
+                        "<td>"+MotorVogn.Navn+"</td>" +
+                        "<td>"+MotorVogn.Adresse+"</td>"+
+                        "<td>"+MotorVogn.Kjenetegn+"</td>" +
+                        "<td>"+MotorVogn.BilMerke+"</td>" +
+                        "<td>"+MotorVogn.BilType+"</td>" +
+                        "</tr>";
+                }
+                ut+="</table>";
+                $("#ut").html(ut);
+            }
+    </script>
+</body>
+</html>
