@@ -11,11 +11,11 @@ public class MotorVogn {
     public MotorVogn(String  personnummer, String navn, String adresse,
                      String kjenetegn, String bilMerke, String bilType) {
         this.personnummer = personnummer;
-        Navn = navn;
-        Adresse = adresse;
+        this.Navn = navn;
+        this.Adresse = adresse;
         this.kjenetegn = kjenetegn;
-        BilMerke = bilMerke;
-        BilType = bilType;
+        this.BilMerke = bilMerke;
+        this.BilType = bilType;
     }
     public MotorVogn(){
     }
